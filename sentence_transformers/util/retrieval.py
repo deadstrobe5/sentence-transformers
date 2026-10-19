@@ -255,14 +255,12 @@ def semantic_search(
                 for candidate in candidates:
                     heapq.heappushpop(query_results, candidate)
 
-    # change the data format and sort
-    return [
-        [
+    for query_id, query_results in enumerate(queries_result_list):
+        queries_result_list[query_id] = [
             {"corpus_id": corpus_id, "score": score}
             for score, corpus_id in sorted(query_results, key=itemgetter(0), reverse=True)
         ]
-        for query_results in queries_result_list
-    ]
+    return queries_result_list
 
 
 def community_detection(
